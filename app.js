@@ -1,12 +1,12 @@
 const express=require('express');
 const app=express();
-const bodyParser =require('body-parser');
+// const bodyParser =require('body-parser');
 const port =3000;
 
 
 ADMINS=[];
 USERS=[];
-app.use(bodyParser);
+app.use(express.json());
 
 
 app.post('/admin/signup',(req,res)=>{
