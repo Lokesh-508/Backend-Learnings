@@ -3,10 +3,47 @@ const app=express();
 // const bodyParser =require('body-parser');
 const port =3000;
 
-
-ADMINS=[];
-USERS=[];
 app.use(express.json());
+let ADMINS=[{
+    "username":"lokeshsunkari508@gmail.com",
+    "password":"1234"
+
+}];
+
+
+let USERS=[{
+    "username":"lokeshsunkari508@gmail.com",
+    "password":"1234"
+
+}];
+
+let COURSES=[];
+
+const adminAuthentication =(req,res,next)=>{
+      const {username,password}=req.headers;
+     
+
+      // const {username,password}= { username: 'saitejackoti508@gmail.com', password: '585'};
+      const admin=ADMINS.find(a=>a.username===username && a.password===password)
+      if(admin){
+        next();
+      }else{
+        res.status(403).json({message:'Admin authentication failed'});
+      }
+
+      console.log(ADMINS);
+    };
+
+
+    const userAuthentication =(req,res,next)=>{
+        const {username,password}=req.headers;
+        const user=USERS.find(a=>a.username===username && a.password===password)
+        if(user){
+          next();
+        }else{
+          res.status(403).json({message:'user authentication failed'});
+        }
+      };
 
 
 app.post('/admin/signup',(req,res)=>{
@@ -19,6 +56,42 @@ app.post('/admin/signup',(req,res)=>{
         res.json({message:'Admin created successfully'});
     }
 });
+
+app.post('/admin/login',adminAuthentication,(req,res)=>{
+      res.json({message:'Logged in sucessfully'});  
+});
+
+
+app.post('/admin/courses',adminAuthentication,(req,res)=>{
+  const course=req.body;
+  // you can do validations befaore adding to courses
+
+  course.id=Date.now();
+  COURSES.push(course);
+  res.json({message:'Course created successfully',courseId:course.id});
+})
+
+
+app.get('/admin/courses',(req,res)=>{
+  res.json({courses:COURSES});
+});
+
+
+app.post('/user/signup',(req,res)=>{
+    const user=req.body;
+    const existingUser=USERS.find(a=>a.username===user.username);
+    if(existingUser){
+        res.status(403).json('User already Logged in');
+    }else{
+        USERS.push(user);
+        res.status(401).json('user created sucessfully');
+    }
+});
+
+
+app.post('/user/login',userAuthentication,(req,res)=>{
+    res.status(403).json('User already existe')
+})
 
 
 
