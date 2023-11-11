@@ -1,10 +1,10 @@
 # Learning Backend through projects
 # Authentication and Databases
 ## 02-course-selling -easy
-       *Middleware
-       *connected backend with frontend using postman testing of routes
-       * basic authentication function for admin signup and login
-       * basic authentication function for user signup and login
+       +Middleware
+       +connected backend with frontend using postman testing of routes
+       + basic authentication function for admin signup and login
+       + basic authentication function for user signup and login
 
 ## 02-course-selling-medium
         * Middleware
