@@ -43,6 +43,8 @@ const adminAuthentication =(req,res,next)=>{
         }else{
           res.status(403).json({message:'user authentication failed'});
         }
+
+        console.log(USERS);
       };
 
 
@@ -81,16 +83,18 @@ app.post('/user/signup',(req,res)=>{
     const user=req.body;
     const existingUser=USERS.find(a=>a.username===user.username);
     if(existingUser){
-        res.status(403).json('User already Logged in');
+        res.json('User already Logged in');
     }else{
         USERS.push(user);
-        res.status(401).json('user created sucessfully');
+        res.json('user created sucessfully');
     }
+
+    console.log(USERS);
 });
 
 
 app.post('/user/login',userAuthentication,(req,res)=>{
-    res.status(403).json('User already existe')
+    res.json('User already existe');
 })
 
 
