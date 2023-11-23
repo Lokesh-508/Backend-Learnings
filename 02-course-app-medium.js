@@ -1,9 +1,12 @@
 const express=require('express');
+const cors=require('cors');
+const nodemon =require('nodemon')
 const app=express();
 
 
 const jwt =require('jsonwebtoken');
 const port =3000;
+app.use(cors());
 
 app.use(express.json());
 let ADMINS=[{
@@ -83,6 +86,7 @@ app.post('/admin/signup',(req,res)=>{
         res.json({message:'Admin created successfully',token});
         
     }
+    console.log(admin);
 });
 
 app.post('/admin/login',(req,res)=>{
@@ -103,7 +107,7 @@ app.post('/admin/login',(req,res)=>{
 
 
 app.post('/admin/courses',authenticateJwt,(req,res)=>{
-    console.log(req.user.username);
+    // console.log(req.user.username);
   const course=req.body;
   // you can do validations befaore adding to courses
 
